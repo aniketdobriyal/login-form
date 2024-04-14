@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ 
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="project.css">
+   
+</head>
+
+<body onload="main()">
+
+    <div class="hero" id="main">
+
+        <div id="second">
+            <div id="box1">
+                <span>Already a member ? <a href="">Sign In</a></span>
+            </div>
+
+
+            <div id="box2">
+                <div style="width:400px;margin-top:5vmin">
+
+
+                    <span
+                        style="display:block;width:500px;font-weight: bolder;font-size:xx-large;font-family:system-ui,sans-serif;">Sign
+                        up to
+                        Dribbble</span>
+                    <div id="popvalidate"><span
+                            style="color:rgb(194, 13, 13);display:inline-block;margin-top:15px;">*Username has already
+                            been taken</span><br>
+
+                    </div>
+
+                    <form action="account signin.html" method="post" style="width:500px;margin:auto">
+                        <div style="display:flex;margin-top:25px">
+
+                            <div style="width:30vmin">
+
+                                <label for="name">Name</label>
+                            </div>
+                            <div style="width:30vmin">
+
+                                <label for="username">Username</label>
+                            </div>
+                        </div>
+
+                        <input type="text" style="width: 29vmin;margin-right:4px;margin-top:5px;" placeholder="Name"
+                            id="name" required>
+                        <input type="text" style="width: 29vmin;margin-bottom:35px" placeholder="Username" id="username"
+                            required>
+                        <br>
+                        <label for="email">Email</label><br>
+                        <input type="email" id="email" placeholder="Email" required><br>
+
+                        <label for="password">Password</label><br>
+                        <input type="password" id="password" placeholder="Password" required>
+
+                        <br>
+
+                        <div style="display: flex;gap:5px">
+                            <div>
+
+                                <input type="checkbox" style="width:20px;" required>
+                            </div>
+                            <div>
+
+                                <span style="font-size:small;display:inline-block;width:60%">creating an account means
+                                    you
+                                    are ok with our terms <a href="">Terms of service, privacy policy,</a>and our
+                                    default <a href="">Notification Settings.</a>
+                                </span>
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Create Account"
+                            style="background-color:#e94b8a;color:#f3f3f3;margin-top:15px;width:35vmin;padding:5px">
+                        <canvas id="canvas"></canvas>
+                        <script>
+                            const canvas = document.getElementById('canvas');
+                            const ctx = canvas.getContext('2d');
+
+                            canvas.width = window.innerWidth;
+                            canvas.height = window.innerHeight;
+
+                            const circles = [];
+                            const numCircles = 10;
+                            const radius = 30;
+
+                            for (let i = 0; i < numCircles; i++) {
+                                const x = Math.random() * (canvas.width - radius * 2) + radius;
+                                const y = Math.random() * (canvas.height - radius * 2) + radius;
+                                const dx = (Math.random() - 0.5) * 5; // velocity x
+                                const dy = (Math.random() - 0.5) * 5; // velocity y
+                                const color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.2)`;
+                                circles.push({ x, y, dx, dy, radius, color });
+                            }
+
+                            function animate() {
+                                requestAnimationFrame(animate);
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                                circles.forEach(circle => {
+                                    ctx.beginPath();
+                                    ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2, false);
+                                    ctx.fillStyle = circle.color;
+                                    ctx.fill();
+
+                                    // Check boundaries
+                                    if (circle.x + circle.radius > canvas.width || circle.x - circle.radius < 0) {
+                                        circle.dx = -circle.dx;
+                                    }
+                                    if (circle.y + circle.radius > canvas.height || circle.y - circle.radius < 0) {
+                                        circle.dy = -circle.dy;
+                                    }
+
+                                    // Update position
+                                    circle.x += circle.dx;
+                                    circle.y += circle.dy;
+                                });
+
+                            }
+
+                            animate();
+                        </script>
+
+                    </form>
+
+                    <div>
+
+                        <span style="font-size:small;display:inline-block;width:70vmin;color:#fdfdff">
+                            this site is protected by reCAPTCHA and the google <a href="">privacy</a>
+                            and <a href="">Term of service</a> apply.
+                        </span>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <br> <br> <br> <br> <br>
+</body>
+
+</html>

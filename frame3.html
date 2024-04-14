@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background-size: 450vw 950vh;
+      animation: gradientChange 3s infinite;
+      background-color: #0b0b0b;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    @keyframes gradientChange {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    * {
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+    }
+
+    .ch {
+      display: flex;
+
+      width: 100vw;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box {
+      background-color: #ffffff;
+      width: 25vw;
+      height: 20vmax;
+      overflow: hidden;
+      object-fit: contain;
+      border-radius: 12%;
+      box-shadow: 5px 5px 24px 5px;
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+
+      filter: opacity(.6);
+
+
+
+
+    }
+
+
+    .box:hover {
+      filter: opacity(1);
+    }
+
+    .headline {
+      color: aliceblue;
+      text-align: center;
+
+margin-top: 5px;
+    }
+
+    #buttonr {
+      background: none;
+      box-shadow: none;
+      height: 80px;
+   filter: opacity(1);
+    }
+
+ 
+
+    .redbtn {
+      background-color: #e94b8a;
+      color: white;
+      width: 150px;
+      height: 45px;
+      border-style: solid ;
+      border-color:  #e94b8a;
+      border-radius: 10px 10px 10px 10px;
+
+    }
+
+
+
+    @media only screen and (max-width: 500px) {
+      .ch {
+        flex-wrap: wrap;
+      }
+
+      .headline {
+        padding-top: 10px;
+      }
+
+      .redbtn {
+        margin-top: 0%;
+      }
+
+      .box {
+        width: 50vw;
+        height: 25vh;
+
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+
+  <div class="headline">
+
+    <h1
+      style="font-weight:1000;margin-bottom:5px;font-size:200%;font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
+      what brings you to Dribbble ?</h1>
+  </div>
+  <div style="text-align:center;margin-bottom:5%;padding:15px">
+    <p style="color:rgb(231, 226, 226);font-size:100%;">Select the options that best describe you.Don't worry,you can
+      explores other options later.</p>
+  </div>
+
+  <div class="ch">
+
+    <label for="choice1">
+      <div class="box">
+        <img src="choice1.png" height="90%" alt="">
+        <input type="radio" name="choice" id="choice1">
+      </div>
+    </label>
+
+    <label for="choice2">
+      <div class="box">
+        <img src="choice2.png" height="90%" alt="">
+        <input type="radio" name="choice" id="choice2">
+      </div>
+    </label>
+
+    <label for="choice3">
+      <div class="box">
+        <img src="choice3.png" height="90%" alt="">
+        <input type="radio" name="choice" id="choice3">
+      </div>
+    </label>
+
+    <div class="box" id='buttonr'>
+
+      <input type="submit" class="redbtn"  value="Finish">
+    </div>
+
+  </div>
+
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const circles = [];
+    const numCircles = 20;
+    const radius = 30;
+
+    for (let i = 0; i < numCircles; i++) {
+      const x = Math.random() * (canvas.width - radius * 2) + radius;
+      const y = Math.random() * (canvas.height - radius * 2) + radius;
+      const dx = (Math.random() - 0.5) * 5; // velocity x
+      const dy = (Math.random() - 0.5) * 5; // velocity y
+      const color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.2)`;
+      circles.push({ x, y, dx, dy, radius, color });
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      circles.forEach(circle => {
+        ctx.beginPath();
+        ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = circle.color;
+        ctx.fill();
+
+        // Check boundaries
+        if (circle.x + circle.radius > canvas.width || circle.x - circle.radius < 0) {
+          circle.dx = -circle.dx;
+        }
+        if (circle.y + circle.radius > canvas.height || circle.y - circle.radius < 0) {
+          circle.dy = -circle.dy;
+        }
+
+        // Update position
+        circle.x += circle.dx;
+        circle.y += circle.dy;
+      });
+      
+    }
+
+    animate();
+  </script>
+
+</body>
+
+</html>
