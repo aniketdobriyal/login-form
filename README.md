@@ -1,2 +1,2 @@
 # login-form
-Simple Demonstration of login form with eye catching interface.
+Simple Demonstration of responsive login form with eye catching interface.
